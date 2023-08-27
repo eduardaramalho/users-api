@@ -18,7 +18,7 @@ export class CreateUserController implements ICreateUserContoller {
       const requiredFields = ["firstName", "lastName", "email", "password"];
 
       for (const field of requiredFields) {
-        if (!httpRequest.body[field as keyof CreateUserParams]?.length) {
+        if (!httpRequest?.body?.[field as keyof CreateUserParams]?.length) {
           return {
             statusCode: 400,
             body: `Field ${field} is required`,
@@ -26,7 +26,7 @@ export class CreateUserController implements ICreateUserContoller {
         }
       }
 
-      const emailIsValid = validator.isEmail(httpRequest.body.email);
+      const emailIsValid = validator.isEmail(httpRequest.body!.email);
 
       if (!emailIsValid) {
         return {

@@ -19,7 +19,10 @@ export class MongoUpdateUserRepository implements IUpdateUserRepository {
 
     const user = await MongoClient.db
       .collection<Omit<User, "id">>("users")
-      .findOne({ _id: new Object(id) });
+      .findOne({ _id: new ObjectId(id) });
+
+    console.log(id);
+    console.log(user);
 
     if (!user) {
       throw new Error("User not updated");
